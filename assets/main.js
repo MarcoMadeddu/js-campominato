@@ -9,27 +9,42 @@ var numeriVietati = [];
 var mieiNumeri = [];
 var punteggio = 0;
 
-for (var i = 0; i <= 15; i++){
-  numeriVietati.push(creaNumero());
+for (var i = 0; i < 16; i++) {
+     numeroBomba = creaNumero();
+     controlloPresenza(numeriVietati , numeroBomba);
+ }
+ console.log(numeriVietati);
 
-}
+for (var i = 0; i < 16; i++){
 
-for (var i = 0; i <= 15; i++){
+    var valore = parseInt(prompt("inserisci un numero"));
 
-  var valore = parseInt(prompt("inserisci un numero"));
-  mieiNumeri.push(valore);
+    if(numeriVietati.includes(valore)){
 
-  if(numeriVietati.includes(mieiNumeri[i])){
-    console.log("++SCONFITTA++ \n hai preso una bomba");
-    break;
-  }
+      console.log("++SCONFITTA++\n"  + valore + " è un numero bomba");
+      break;
 
-  punteggio ++;
+    }
+
+    if (!mieiNumeri.includes(valore)) {
+
+        mieiNumeri.push(valore);
+        punteggio ++;
+
+    } else {
+
+      alert("non inserire numeri uguali!")
+      i = i-1;
+
+    }
 }
 
 if(punteggio == 16){
-  console.log("++VITTORIA++");
+
+  console.log("++VITTORIA++ \n le tue scelte: " + mieiNumeri);
+
 }
+
 
 console.log("il tuo punteggio: " + punteggio);
 
@@ -53,26 +68,15 @@ function creaNumero (){
 
 }
 
+function controlloPresenza(vetA , num){
 
-// for (var i = 0; i <= 16; i++){
-//
-//   numeriVietati.push(creaNumero());
-//
-//   if(numeriVietati.includes(numeriVietati[i])){
-//     var doppio = true;
-//     do{
-//       numeriVietati[i] = creaNumero();
-//       if(numeriVietati.includes(numeriVietati[i])){
-//         var doppio = true;
-//       }
-//         else{
-//           doppio = false;
-//         }
-//     }
-//     while (doppio);
-//   }
-//
-//
-//
-// }
-// console.log(numeriVietati);
+       if (!vetA.includes(num)) {
+
+           return vetA.push(num);
+
+       } else {
+
+         return i = i - 1;
+
+       }
+}
