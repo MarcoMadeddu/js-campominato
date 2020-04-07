@@ -9,74 +9,58 @@ var numeriVietati = [];
 var mieiNumeri = [];
 var punteggio = 0;
 
+//Array Pc
 for (var i = 0; i < 16; i++) {
      numeroBomba = creaNumero();
      controlloPresenza(numeriVietati , numeroBomba);
  }
- console.log(numeriVietati);
 
-for (var i = 0; i < 16; i++){
 
-    var valore = parseInt(prompt("inserisci un numero"));
+//Array Utente
+for (var i = 0; i < 84; i++){
+  var valore = parseInt(prompt("inserisci un numero"));
 
-    if(numeriVietati.includes(valore)){
+  if(numeriVietati.includes(valore)){
+    console.log("++SCONFITTA++\n"  + valore + " è un numero bomba");
+    console.log("Tutti i numeri bomba: " + numeriVietati);
+    break;
+  }
 
-      console.log("++SCONFITTA++\n"  + valore + " è un numero bomba");
-      break;
-
-    }
-
-    if (!mieiNumeri.includes(valore)) {
-
-        mieiNumeri.push(valore);
-        punteggio ++;
-
-    } else {
-
-      alert("non inserire numeri uguali!")
-      i = i-1;
-
-    }
+  controlloValidita(valore , mieiNumeri);
 }
 
-if(punteggio == 16){
-
+if(punteggio == 84){
   console.log("++VITTORIA++ \n le tue scelte: " + mieiNumeri);
-
 }
 
-
+console.log("Le tue scelte: " + mieiNumeri);
 console.log("il tuo punteggio: " + punteggio);
-
-
-
-
-
-
-
-
-
-
-
 
 
 
 //functions
 function creaNumero (){
-
   return  Math.floor( Math.random() * 100) + 1;
-
 }
 
+//La funzione si occupa di verificare che l'array del pc non abbia duplicati al suo interno
+
 function controlloPresenza(vetA , num){
+   if (!vetA.includes(num)) {
+       return vetA.push(num);
+   } else {
+     return i = i - 1;
+   }
+}
 
-       if (!vetA.includes(num)) {
+//la funzione verifica la validità del numero inserito dall'utente: non deve essere un duplicato e deve essere compreso tra 1 e 100;
 
-           return vetA.push(num);
-
-       } else {
-
-         return i = i - 1;
-
-       }
+function controlloValidita(numControllo , vetPush){
+  if (numControllo > 100 || numControllo < 1 ){
+    return  alert("numero non valido") + (i = i-1);
+  }else if (!vetPush.includes(numControllo)) {
+      return vetPush.push(numControllo) + (punteggio ++);
+    }else {
+    return alert("non inserire numeri uguali!")  + (i = i-1);
+  }
 }
