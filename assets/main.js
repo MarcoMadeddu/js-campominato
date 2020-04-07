@@ -5,9 +5,39 @@ console.log("ok");
 // La partita termina quando il giocatore inserisce un numero “vietato” o raggiunge il numero massimo possibile di numeri consentiti.
 // Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha inserito un numero consentito.
 
+
 var numeriVietati = [];
 var mieiNumeri = [];
 var punteggio = 0;
+var difficoltà = "";
+var maxTries = 0;
+var range = 0;
+
+while(difficoltà > 3 || difficoltà < 1){
+  difficoltà = parseInt( prompt('Inserisci la Difficolta \n 1:facile \n 2:medium \n 3:hard') );
+}
+
+switch (difficoltà) {
+  case 1:
+    max = 84;
+    range = 100;
+    break;
+  case 2:
+    max = 64;
+    range = 80;
+    break;
+  case 3:
+    max = 34;
+    range = 50;
+    break;
+
+  default:
+  console.log("inserisci uno dei valori");
+}
+
+console.log("difficoltà scelta: " + difficoltà + " \npuoi inserire numeri da 1 a " + range);
+
+
 
 //Array Pc
 for (var i = 0; i < 16; i++) {
@@ -17,7 +47,7 @@ for (var i = 0; i < 16; i++) {
 
 
 //Array Utente
-for (var i = 0; i < 84; i++){
+for (var i = 0; i < max; i++){
   var valore = parseInt(prompt("inserisci un numero"));
 
   if(numeriVietati.includes(valore)){
@@ -27,9 +57,10 @@ for (var i = 0; i < 84; i++){
   }
 
   controlloValidita(valore , mieiNumeri);
+  console.log("ultimi numeri: " + mieiNumeri);
 }
 
-if(punteggio == 84){
+if(punteggio == 2){
   console.log("++VITTORIA++ \n le tue scelte: " + mieiNumeri);
 }
 
@@ -40,7 +71,7 @@ console.log("il tuo punteggio: " + punteggio);
 
 //functions
 function creaNumero (){
-  return  Math.floor( Math.random() * 100) + 1;
+  return  Math.floor( Math.random() * range) + 1;
 }
 
 //La funzione si occupa di verificare che l'array del pc non abbia duplicati al suo interno
@@ -56,8 +87,8 @@ function controlloPresenza(vetA , num){
 //la funzione verifica la validità del numero inserito dall'utente: non deve essere un duplicato e deve essere compreso tra 1 e 100;
 
 function controlloValidita(numControllo , vetPush){
-  if (numControllo > 100 || numControllo < 1 ){
-    return  alert("numero non valido") + (i = i-1);
+  if (numControllo > range || numControllo < 1 ){
+    return  alert("numero non valido, numero massimo consentito: " + range) + (i = i-1);
   }else if (!vetPush.includes(numControllo)) {
       return vetPush.push(numControllo) + (punteggio ++);
     }else {
